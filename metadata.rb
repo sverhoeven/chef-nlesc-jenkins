@@ -6,7 +6,7 @@ description      'Installs/Configures nlesc-jenkins'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
-depends "nlesc_base"
+depends "nlesc-base"
 depends "jenkins"
 depends "ssh", ">= 0.6.4"
 depends "build-essential"

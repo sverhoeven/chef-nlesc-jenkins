@@ -2,6 +2,6 @@ site :opscode
 
 metadata
 
-cookbook 'nlesc-base', git: 'https://github.com/sverhoeven/chef-nlesc-base.git
-cookbook 'ssh', git: 'https://github.com/markolson/chef-ssh.git'
+cookbook 'nlesc-base', github: 'sverhoeven/chef-nlesc-base'
+cookbook 'ssh', github: 'markolson/chef-ssh'
 
