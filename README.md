@@ -40,6 +40,7 @@ To edit use:
 # Attributes
 
 * `node['nlesc-jenkins']['github']['user]'` - Username to which to add ssh key. Default is `jenkins-node`.
+* `node['nlesc-jenkins']['xenon']['config']` - Hash of xenon test configuration key/value pairs. See https://github.com/NLeSC/Xenon/blob/develop/test/xenon.test.properties.examples.
 
 # Recipes
 

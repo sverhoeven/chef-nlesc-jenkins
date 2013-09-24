@@ -16,6 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe "openssh"
 
 u = Chef::EncryptedDataBagItem.load('xenon', 'user')
 user_name = u['name']
@@ -70,7 +71,7 @@ template "#{home_dir}/test.properties" do
   variables(
     :user => user_name,
     :password => u['password'],
-    :config => node['xenon']['config']
+    :config => node['nlesc-jenkins']['xenon']['config']
   )
 end
 

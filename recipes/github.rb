@@ -21,13 +21,14 @@ ohai "reload_passwd" do
     plugin "passwd"
 end
 
-user_name = node['nlesc-jenkins'][:github][:user]
+user_name = node['jenkins']['node']['user']
+group_name = node['jenkins']['node']['group']
 # for this to work the user must exist
 home_dir = node[:etc][:passwd][user_name][:dir]
 
 directory "#{home_dir}/.ssh" do
   owner user_name
-  group user_name
+  group group_name
   mode 0600
   action :create
 end
@@ -42,7 +43,7 @@ u = Chef::EncryptedDataBagItem.load('github', 'user')
 template "#{home_dir}/.ssh/github.key" do
   source "private_key.erb"
   owner user_name
-  group user_name
+  group group_name
   mode 0400
   variables :private_key => u['ssh_private_key']
 end
@@ -55,7 +56,7 @@ end
 template "#{home_dir}/.ssh/github.pub" do
   source "public_key.erb"
   owner user_name
-  group user_name
+  group group_name
   mode 0400
   variables :public_key => u['ssh_public_key']
 end
