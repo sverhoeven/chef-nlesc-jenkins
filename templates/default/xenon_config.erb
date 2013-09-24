@@ -1,0 +1,13 @@
+test.ssh.user = <%= @user %>
+test.ssh.password = <%= @password %>
+
+test.gridengine.user = <%= @user %>
+test.gridengine.password = <%= @password %>
+
+test.slurm.user = <%= @user %>
+test.slurm.password = <%= @password %>
+
+<% @config.each do |key, value| -%>
+<%= "#{key} = #{value}" %>
+<% end -%>
+
