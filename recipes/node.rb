@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+# Use same username for server and node
+node.override['jenkins']['node']['user'] = "jenkins"
+node.override['jenkins']['node']['group'] = "jenkins"
+
 include_recipe "nlesc-base"
 include_recipe "build-essential"
 include_recipe "jenkins::node"

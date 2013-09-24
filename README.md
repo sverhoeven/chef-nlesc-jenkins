@@ -39,7 +39,12 @@ To edit use:
 
 # Attributes
 
-* `node['nlesc-jenkins']['github']['user]'` - Username to which to add ssh key. Default is `jenkins-node`.
+* `node['nlesc-jenkins']['github']['user]'` - Username to which to add ssh key. Default is `jenkins`.
+* `node['nlesc-jenkins']['github']['group']` - Group to which chgrp the ssh key. Default is `jenkins`.
+* `node['nlesc-jenkins']['rdkit']['version']` - Version of RDKit to install.
+* `node['nlesc-jenkins']['rdkit']['folder']` - Folder on RDKit sourceforge to download tarball from.
+* `node['nlesc-jenkins']['senchacmd']['version']` - Version of SenchaCmd to install.
+* `node['nlesc-jenkins']['senchacmd']['prefix']` - Location to install SenchaCmd.
 * `node['nlesc-jenkins']['xenon']['config']` - Hash of xenon test configuration key/value pairs. See https://github.com/NLeSC/Xenon/blob/develop/test/xenon.test.properties.examples.
 
 # Recipes
@@ -60,9 +65,18 @@ The public key should be registered at github.com to have pull rights on the pri
 
 The recipe requires the user and it's home dir to exist.
 
+## SenchaCmd
+
+This recipe installs SenchaCmd.
+
+## RDKit
+
+This recipe installs RDKit with inchi suppport.
+RDKit has to be compiled as RDKit from distro are missing inchi support.
+
 ## Xenon
 
-This cookbook makes a test account and config file for running the Octopus testsuite.
+This recipe makes a test account and config file for running the Octopus testsuite.
 
 It also disables hashing of known hosts and automaticly accepts new host keys.
 

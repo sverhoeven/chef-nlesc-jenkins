@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nlesc-jenkins
-# Recipe:: server
+# Attribute:: github
 #
 # Copyright (C) 2013 Netherlands eScience Center
 # 
@@ -16,18 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+default['nlesc-jenkins']['github']['user'] = 'jenkins'
+default['nlesc-jenkins']['github']['group'] = 'jenkins'
 
-# Master should not build jobs.
-node.override["jenkins"]["node"] = {
-    "executors" => 1,
-    "mode" => "exclusive",
-    "labels" => ["master"]
-}
-
-include_recipe "nlesc-base"
-include_recipe "jenkins::server"
-include_recipe "jenkins::proxy"
-# Allow jenkins user to checkout github repos
-include_recipe "nlesc-jenkins::github"
-# Allow jenkins to send mails
-include_recipe "postfix"

@@ -21,8 +21,8 @@ ohai "reload_passwd" do
     plugin "passwd"
 end
 
-user_name = node['jenkins']['node']['user']
-group_name = node['jenkins']['node']['group']
+user_name = node['nlesc-jenkins']['github']['user']
+group_name = node['nlesc-jenkins']['github']['group']
 # for this to work the user must exist
 home_dir = node[:etc][:passwd][user_name][:dir]
 
