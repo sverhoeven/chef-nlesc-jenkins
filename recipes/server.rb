@@ -30,3 +30,6 @@ include_recipe "jenkins::proxy"
 
 # TODO Overwrite username
 # include_recipe "nlesc-jenkins::github"
+
+# Allow jenkins to send mails
+include_recipe "postfix"

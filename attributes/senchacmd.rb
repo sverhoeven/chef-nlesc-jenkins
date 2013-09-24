@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nlesc-jenkins
-# Recipe:: node
+# Attribute:: senchacmd
 #
 # Copyright (C) 2013 Netherlands eScience Center
 # 
@@ -16,26 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+default['nlesc-jenkins']['senchacmd']['version'] = '4.0.0.161'
+default['nlesc-jenkins']['senchacmd']['prefix'] = '/opt/SenchaCmd'
 
-include_recipe "nlesc-base"
-include_recipe "build-essential"
-include_recipe "jenkins::node"
-include_recipe "nlesc-jenkins::github"
-include_recipe "nlesc-jenkins::octopus"
-include_recipe "nodejs::npm"
-include_recipe "python"
-include_recipe "cmake"
-include_recipe "rvm::ruby_193"
-include_recipe "ant"
-include_recipe "maven"
-
-gem_package "jsduck"
-npm_package "jshint"
-npm_package "karma"
-
-python_pip "flake8"
-python_pip "clonedigger"
-
-# Default to display on port 99
-include_recipe "xvfb"
-  

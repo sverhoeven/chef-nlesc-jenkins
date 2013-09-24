@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nlesc-jenkins
-# Recipe:: node
+# Attribute:: rdkit
 #
 # Copyright (C) 2013 Netherlands eScience Center
 # 
@@ -17,25 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "nlesc-base"
-include_recipe "build-essential"
-include_recipe "jenkins::node"
-include_recipe "nlesc-jenkins::github"
-include_recipe "nlesc-jenkins::octopus"
-include_recipe "nodejs::npm"
-include_recipe "python"
-include_recipe "cmake"
-include_recipe "rvm::ruby_193"
-include_recipe "ant"
-include_recipe "maven"
-
-gem_package "jsduck"
-npm_package "jshint"
-npm_package "karma"
-
-python_pip "flake8"
-python_pip "clonedigger"
-
-# Default to display on port 99
-include_recipe "xvfb"
-  
+default['nlesc-jenkins']['rdkit']['version'] = '2013_06_1'
+default['nlesc-jenkins']['rdkit']['folder'] = 'Q2_2013'

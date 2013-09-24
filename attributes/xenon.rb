@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: nlesc-jenkins
-# Recipe:: xenon
+# Attribute:: xenon
 #
 # Copyright (C) 2013 Netherlands eScience Center
 # 
