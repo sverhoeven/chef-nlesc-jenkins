@@ -11,7 +11,7 @@ Application (wrapper) cookbook for Jenkins server and node for Netherlands eScie
 
     {
       "id": "user",
-      "name": "octopus",
+      "name": "xenon",
       "password_hash": "<paste encrypted password here, made with `openssl passwd -1 plaintextpassword`",
       "password": "<paste clear text password here>",
       "ssh_private_key": "<paste ssh private key here>",
@@ -21,6 +21,7 @@ Application (wrapper) cookbook for Jenkins server and node for Netherlands eScie
       ]
     }
 
+### Server creation
 
 It can be created with:
 
@@ -35,14 +36,23 @@ To edit use:
   knife data bag edit --secret-file ~/vmbuilder/encrypted_data_bag_secret -Fj xenon user
   # do not to forget to save changes back in git
 
+### Solo creation
+
+    gem install knife-solo_data_bag
+    mkdir -p test/integration/default test/integration/default/data_bags
+    openssl rand -base64 512 > test/integration/default/encrypted_data_bag_secret
+    EDITOR=nano knife solo data bag create --data-bag-path test/integration/default/data_bags --secret-file test/integration/default/encrypted_data_bag_secret github user
+    EDITOR=nano knife solo data bag create --data-bag-path test/integration/default/data_bags --secret-file test/integration/default/encrypted_data_bag_secret xenon user
+
 # Usage
 
 # Attributes
 
 * `node['nlesc-jenkins']['github']['user]'` - Username to which to add ssh key. Default is `jenkins`.
 * `node['nlesc-jenkins']['github']['group']` - Group to which chgrp the ssh key. Default is `jenkins`.
-* `node['nlesc-jenkins']['rdkit']['version']` - Version of RDKit to install.
+* `node['nlesc-jenkins']['rdkit']['prefix']` - Location to install RDKit.
 * `node['nlesc-jenkins']['rdkit']['folder']` - Folder on RDKit sourceforge to download tarball from.
+* `node['nlesc-jenkins']['rdkit']['version']` - Version of RDKit to install.
 * `node['nlesc-jenkins']['senchacmd']['version']` - Version of SenchaCmd to install.
 * `node['nlesc-jenkins']['senchacmd']['prefix']` - Location to install SenchaCmd.
 * `node['nlesc-jenkins']['xenon']['config']` - Hash of xenon test configuration key/value pairs. See https://github.com/NLeSC/Xenon/blob/develop/test/xenon.test.properties.examples.
@@ -67,12 +77,24 @@ The recipe requires the user and it's home dir to exist.
 
 ## SenchaCmd
 
-This recipe installs SenchaCmd.
+This recipe installs SenchaCmd into /opt/SenchaCmd.
+The `sencha` executable will be in `/opt/SenchaCmd/Sencha/Cmd/<node['nlesc-jenkins']['senchacmd']['version']>`.
 
 ## RDKit
 
 This recipe installs RDKit with inchi suppport.
 RDKit has to be compiled as RDKit from distro are missing inchi support.
+A Python virtualenv will be made in `/opt/rdkit`.
+
+Compiling will take a long time (+15 minutes).
+
+Usage example:
+
+   . /opt/rdkit/bin/activate
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rdkit/lib
+   python
+   from rdkit.Chem.inchi import INCHI_AVAILABLE
+   INCHI_AVAILABLE
 
 ## Xenon
 

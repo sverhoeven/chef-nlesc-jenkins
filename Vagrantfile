@@ -9,11 +9,14 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "nlesc-jenkins-berkshelf"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "Berkshelf-CentOS-6.3-x86_64-minimal"
+  #config.vm.box = "Berkshelf-CentOS-6.3-x86_64-minimal"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://dl.dropbox.com/u/31081437/Berkshelf-CentOS-6.3-x86_64-minimal.box"
+  #config.vm.box_url = "https://dl.dropbox.com/u/31081437/Berkshelf-CentOS-6.3-x86_64-minimal.box"
+
+  config.vm.box = "opscode-ubuntu-12.04-chef"
+  config.vm.box_url = 'https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.2.0.box'
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -52,9 +55,6 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
 
-  config.ssh.max_tries = 40
-  config.ssh.timeout   = 120
-
   # The path to the Berksfile to use with Vagrant Berkshelf
   # config.berkshelf.berksfile_path = "./Berksfile"
 
@@ -72,15 +72,30 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
-      :mysql => {
-        :server_root_password => 'rootpass',
-        :server_debian_password => 'debpass',
-        :server_repl_password => 'replpass'
-      }
+        "jenkins" => {
+          "server" => {
+            # To test node recipe a jenkins server url is required
+            "url" => "http://coolhead.thuis:8080"
+          },
+          "node" => {
+            "labels" => ["vagrant"]
+          }
+        },
+        "xenon" => {
+          "config" => {
+            "test.ssh.location" => "localhost"
+          }
+        }
     }
+    chef.data_bags_path = "test/integration/default/data_bags"
+    chef.encrypted_data_bag_secret_key_path = "test/integration/default/encrypted_data_bag_secret"
 
     chef.run_list = [
-        "recipe[nlesc-jenkins::default]"
+        "recipe[apt]",
+        #"recipe[nlesc-jenkins::server]",
+        #"recipe[nlesc-jenkins::node]",
+        #"recipe[nlesc-jenkins::senchacmd]",
+        "recipe[nlesc-jenkins::rdkit]"
     ]
   end
 end

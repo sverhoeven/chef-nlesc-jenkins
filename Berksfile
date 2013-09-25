@@ -5,4 +5,4 @@ cookbook 'nlesc-base', github: 'sverhoeven/chef-nlesc-base'
 
 metadata
 
-
+cookbook 'apt'

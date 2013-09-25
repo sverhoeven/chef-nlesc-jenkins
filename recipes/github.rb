@@ -3,13 +3,13 @@
 # Recipe:: github
 #
 # Copyright (C) 2013 Netherlands eScience Center
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #    http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,7 @@ user_name = node['nlesc-jenkins']['github']['user']
 group_name = node['nlesc-jenkins']['github']['group']
 # for this to work the user must exist
 home_dir = node[:etc][:passwd][user_name][:dir]
+#home_dir = "/home/#{user_name}"
 
 directory "#{home_dir}/.ssh" do
   owner user_name
