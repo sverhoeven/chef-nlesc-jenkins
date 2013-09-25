@@ -36,6 +36,7 @@ include_recipe "maven"
 gem_package "jsduck"
 npm_package "jshint"
 npm_package "karma"
+package "lcov"
 
 python_pip "flake8"
 python_pip "clonedigger"
