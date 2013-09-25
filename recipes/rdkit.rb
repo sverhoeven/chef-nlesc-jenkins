@@ -26,6 +26,7 @@ package "libboost-python-dev"
 package "libboost-regex-dev"
 package "bison"
 package "flex"
+package "unzip"
 
 folder = node['nlesc-jenkins']['rdkit']['folder']
 version = node['nlesc-jenkins']['rdkit']['version']
@@ -60,7 +61,7 @@ bash "build rdkit" do
   cmake -DRDK_BUILD_INCHI_SUPPORT=ON -D PYTHON_LIBRARY=../lib/python2.7/config/libpython2.7-pic.a -D PYTHON_INCLUDE_DIR=../include/python2.7 -D PYTHON_EXECUTABLE=../bin/python ..
   make
   make install
-  mv rdkit lib/python2.7/site-packages/
+  mv ../rdkit ../lib/python2.7/site-packages/
   EOF
   not_if { ::File.exists?("#{prefix}/lib/python2.7/site-packages/rdkit/rdBase.so") }
 end
